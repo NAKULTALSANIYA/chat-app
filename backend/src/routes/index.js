@@ -24,6 +24,14 @@ import {
   revokeFcmToken,
   sendTestNotification,
 } from '../controllers/notificationController.js';
+import {
+  sendChatRequest,
+  acceptChatRequest,
+  rejectChatRequest,
+  getIncomingRequests,
+  getSentRequests,
+  getAllRequests,
+} from '../controllers/chatRequestController.js';
 
 const router = Router();
 
@@ -44,5 +52,13 @@ router.get('/unread', authMiddleware, getUnreadCountController);
 router.post('/notifications/register-token', authMiddleware, registerFcmToken);
 router.post('/notifications/revoke-token', authMiddleware, revokeFcmToken);
 router.post('/notifications/test', authMiddleware, sendTestNotification);
+
+// Chat Request routes
+router.post('/chat-requests', authMiddleware, sendChatRequest);
+router.post('/chat-requests/:requestId/accept', authMiddleware, acceptChatRequest);
+router.post('/chat-requests/:requestId/reject', authMiddleware, rejectChatRequest);
+router.get('/chat-requests/incoming', authMiddleware, getIncomingRequests);
+router.get('/chat-requests/sent', authMiddleware, getSentRequests);
+router.get('/chat-requests', authMiddleware, getAllRequests);
 
 export default router;

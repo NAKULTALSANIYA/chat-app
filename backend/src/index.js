@@ -54,7 +54,8 @@ app.use((err, req, res, _next) => {
 initializeFirebase();
 
 // Initialize Socket.IO
-initializeSocketIO(server);
+const io = initializeSocketIO(server);
+app.set('io', io);
 
 const port = process.env.PORT || 3000;
 

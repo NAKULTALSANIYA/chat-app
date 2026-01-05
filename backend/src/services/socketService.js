@@ -25,8 +25,9 @@ export const initializeSocketIO = (server) => {
   io.on('connection', (socket) => {
     const userId = socket.userId;
 
-    // Mark user as online
+    // Mark user as online and join their personal room
     onlineUsers.set(userId, socket.id);
+    socket.join(userId);
     logger.info(`User ${userId} connected. Online users: ${onlineUsers.size}`);
 
     // Broadcast user is online
