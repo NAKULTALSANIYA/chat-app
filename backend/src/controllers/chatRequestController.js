@@ -1,7 +1,7 @@
 import { ChatRequest } from '../models/chatRequestModel.js';
 import { User } from '../models/userModel.js';
 import { Chat } from '../models/chatModel.js';
-import { sendNotification } from '../services/notificationService.js';
+import { sendPushNotification } from '../services/notificationService.js';
 
 export const sendChatRequest = async (req, res) => {
   try {
@@ -56,7 +56,7 @@ export const sendChatRequest = async (req, res) => {
 
     // Send push notification to receiver
     if (receiver.fcmToken) {
-      await sendNotification(receiver.fcmToken, {
+      await sendPushNotification(receiver._id, {
         title: 'New chat request',
         body: `${sender.name} sent you a chat request`,
         data: {
@@ -135,7 +135,7 @@ export const acceptChatRequest = async (req, res) => {
     const receiver = await User.findById(userId);
 
     if (sender.fcmToken) {
-      await sendNotification(sender.fcmToken, {
+      await sendPushNotification(sender._id, {
         title: 'Request accepted',
         body: `${receiver.name} accepted your chat request`,
         data: {
