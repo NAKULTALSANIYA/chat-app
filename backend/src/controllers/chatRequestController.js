@@ -57,8 +57,8 @@ export const sendChatRequest = async (req, res) => {
     // Send push notification to receiver
     if (receiver.fcmToken) {
       await sendPushNotification(receiver._id, {
-        title: 'New chat request',
-        body: `${sender.name} sent you a chat request`,
+        title: 'Chat Request',
+        body: `You have request for chat from ${sender.name}`,
         data: {
           type: 'chat_request',
           senderId: senderId.toString(),
